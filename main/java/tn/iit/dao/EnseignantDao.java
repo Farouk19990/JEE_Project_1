@@ -36,7 +36,7 @@ public class EnseignantDao {
 		String queryStr = "From Enseignant e where e.id=?0";
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Query query = session.createQuery(queryStr);
-		query.setParameter(1, id);
+		query.setParameter(0, id);
 		List<Enseignant> l = query.getResultList();
 		if (l.isEmpty()) {
 			return null;
@@ -46,9 +46,11 @@ public class EnseignantDao {
 	}
 
 	public static List<Enseignant> getAll() {
-		String queryStr = "From Enseignant u";
+		System.out.println("ccccc");
+		String queryStr = "From Enseignant e";
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Query query = session.createQuery(queryStr);
+		System.out.println("bbbbbbb");
 		return query.getResultList();
 	}
 }

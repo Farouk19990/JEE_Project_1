@@ -17,7 +17,7 @@ public class Enseignant {
 	private String name;
 	private String prenom;
 	private String mail;
-	private String nbheure;
+	private int nbheure;
 	
 	
 	public Enseignant() {
@@ -27,9 +27,8 @@ public class Enseignant {
 		this.nbheure = nbheure;
 	}
 
-	public Enseignant(int id, String name, String prenom, String mail, String nbheure) {
+	public Enseignant( String name, String prenom, String mail, int nbheure) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.prenom = prenom;
 		this.mail = mail;
@@ -72,11 +71,11 @@ public class Enseignant {
 		this.mail = mail;
 	}
 
-	public String getNbheure() {
+	public int getNbheure() {
 		return nbheure;
 	}
 
-	public void setNbheure(String nbheure) {
+	public void setNbheure(int nbheure) {
 		this.nbheure = nbheure;
 	}
 
