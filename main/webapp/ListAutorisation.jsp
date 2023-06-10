@@ -1,3 +1,6 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
+<%@page import="tn.iit.model.Autorisation"%>
+<%@page import="tn.iit.dao.AutorisationDao"%>
 <%@page import="tn.iit.model.Enseignant"%>
 <%@page import="tn.iit.dao.EnseignantDao"%>
 <%@page import="java.util.List"%>
@@ -24,19 +27,17 @@
 <title>Insert title here</title>
 </head>
 <style>
-
-
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-
 }
 
 body {
-background: rgb(2,0,36);
-background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(224,228,235,1) 0%, rgba(237,242,250,1) 89%, rgba(255,255,255,1) 100%);
-
+	background: rgb(2, 0, 36);
+	background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%,
+		rgba(224, 228, 235, 1) 0%, rgba(237, 242, 250, 1) 89%,
+		rgba(255, 255, 255, 1) 100%);
 }
 
 .wrapper {
@@ -119,14 +120,24 @@ p {
 
 <body>
 	<%
-		List<Enseignant> enseignantList = EnseignantDao.getAll();
+	
+	String idE = request.getParameter("idE");
+	System.out.println("List Aut  " + idE);
+	if(idE==null){
+		 idE =(String) session.getAttribute("idE");
+		 System.out.println("List Aut SESSION  " + idE);
+	}
+	List<Autorisation> autorisationList = AutorisationDao.findByEnseignantId(Integer.parseInt(idE));
+	Enseignant enseignant= EnseignantDao.findById(Integer.parseInt(idE));
+	
 	%>
 	<div class="wrapper">
-		<h1>Liste des Enseignants</h1>
+		<h1>Liste des Autorisations</h1>
+
 		<br>
 
 		<div class="table-responsive">
-			<a href="AddEnseignant.jsp" type="button"
+			<a href="AddAutorisation.jsp?idE=<%=idE%>" type="button"
 				class="btn btn-success btn-rounded" style="float: right;"><i
 				class="fa-solid fa-plus"></i> Ajouter</a>
 
@@ -134,8 +145,7 @@ p {
 				<thead>
 					<tr>
 						<th scope="col">Nom</th>
-						<th scope="col">Prenom</th>
-						<th scope="col">Email</th>
+						<th scope="col">Date</th>
 						<th scope="col">Nombre d'heure</th>
 						<th scope="col">Action</th>
 
@@ -143,41 +153,39 @@ p {
 				</thead>
 				<tbody>
 					<%
-						for (Enseignant e : enseignantList) {
+					for (Autorisation a : autorisationList) {
 					%>
 					<tr>
-						<th scope="row"><%=e.getName()%></th>
-						<td><%=e.getPrenom()%></td>
-						<td><%=e.getMail()%></td>
-						<td><%=e.getNbheure()%></td>
-						<td><button type="button" class="btn btn-warning btn-lg btn-floating"
-								data-mdb-ripple-color="dark" onclick=window.location.href="UpdateEnseignant.jsp?pos=<%=e.getId()%>">
+						<th scope="row"><%=enseignant.getName() %></th>
+						<td><%=a.getDate()%></td>
+						<td><%=a.getNbheure()%></td>
+						<td><button type="button"
+								class="btn btn-warning btn-lg btn-floating"
+								data-mdb-ripple-color="dark" onclick=window.location.href="UpdateAutorisation.jsp?pos=<%=a.getId()%>&idE=<%=idE %>">
 								<i class="fa-sharp fa-solid fa-pen-to-square"></i>
 							</button>
 							<button type="button"
 								class="btn btn-outline-danger btn-lg btn-floating"
-								onclick=window.location.href="DeleteController?pos=<%=e.getId()%>" >
+								onclick=window.location.href="DeleteAutorisationController?pos=<%=a.getId()%>&idE=<%=idE %>" >
 								<i class="fa-solid fa-trash"></i>
 							</button>
-							<button type="button"
-								class="btn btn-info btn-lg btn-floating"
-								data-mdb-ripple-color="dark" onclick=window.location.href="ListAutorisation.jsp?idE=<%=e.getId()%>" >				
+							<button type="button" class="btn btn-info btn-lg btn-floating"
+								data-mdb-ripple-color="dark">
 								<i class="fa-solid fa-print"></i>
-							</button>
-							</td>
+							</button></td>
 					</tr>
 					<%
-						}
+					}
 					%>
 				</tbody>
 
-				<caption>Tableau des enseignants</caption>
+				<caption>Tableau des autorisations</caption>
 
 			</table>
 		</div>
-		</div>
-		
-		 
+	</div>
+
+
 </body>
 
 </html>

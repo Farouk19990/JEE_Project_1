@@ -10,21 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tn.iit.dao.AutorisationDao;
 import tn.iit.dao.EnseignantDao;
-import tn.iit.dao.UtilisateurDao;
+import tn.iit.model.Autorisation;
 import tn.iit.model.Enseignant;
 
 /**
- * Servlet implementation class UpdateController
+ * Servlet implementation class UpdateAutorisationController
  */
-@WebServlet("/UpdateController")
-public class UpdateController extends HttpServlet {
+@WebServlet("/UpdateAutorisationController")
+public class UpdateAutorisationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateController() {
+    public UpdateAutorisationController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,20 +42,19 @@ public class UpdateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rdListUserView = getServletContext().getRequestDispatcher("/List.jsp");
+		RequestDispatcher rdListUserView = getServletContext().getRequestDispatcher("/ListAutorisation.jsp");
 	    String index= request.getParameter("pos");
-	    String name = request.getParameter("name");
-		String prenom = request.getParameter("prenom");
-		String mail = request.getParameter("mail");
+	    String date = request.getParameter("date");
 		String nbheure = request.getParameter("nbheure");
+		String idE = request.getParameter("IdE");
 	    int id=Integer.parseInt(index);
-		Enseignant u=EnseignantDao.findById(id);
-	    u.setName(name);
-	    u.setPrenom(prenom);
-	    u.setMail(mail);
-	    u.setNbheure(Integer.parseInt(nbheure));  
-	    System.out.println("user after update ::: "+u.toString());
-	    EnseignantDao.update(u);
+		Autorisation a=AutorisationDao.findBytId(id);
+	    a.setDate(date);
+	    a.setNbheure(Integer.parseInt(nbheure));  
+	    System.out.println("autorisation after update ::: "+a.toString());
+	    AutorisationDao.update(a);
+		HttpSession session = request.getSession();
+		session.setAttribute("idE", idE);
 	    rdListUserView.forward(request, response);
 	}
 

@@ -47,12 +47,9 @@ public class UtilisateurController extends HttpServlet {
 		System.out.println(mail);
 		System.out.println(password);
 		RequestDispatcher rdLoginView = getServletContext().getRequestDispatcher("/Login.jsp");
-		RequestDispatcher rdHelloView = getServletContext().getRequestDispatcher("/Welcome.jsp");
-		HttpSession session =request.getSession();
+		RequestDispatcher rdHelloView = getServletContext().getRequestDispatcher("/List.jsp");
 		Utilisateur u=UtilisateurDao.findByLoginPwd(mail, password);
 		if(u != null) {
-			System.out.println("user iin session "+u);
-			session.setAttribute("currentUser", u);
 			rdHelloView.forward(request, response);
 		}else {
 			request.setAttribute("erreur", "Verifier vos donnée");
