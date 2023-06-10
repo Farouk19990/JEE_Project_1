@@ -140,6 +140,8 @@ p {
 			<a href="AddAutorisation.jsp?idE=<%=idE%>" type="button"
 				class="btn btn-success btn-rounded" style="float: right;"><i
 				class="fa-solid fa-plus"></i> Ajouter</a>
+<a href="List.jsp" type="button"
+				class="btn btn-info btn-rounded" style="float: left;"><i class="fa-solid fa-arrow-left"></i> Liste des enseignants</a>
 
 			<table class="table table-striped table-hover border-info">
 				<thead>
@@ -169,10 +171,11 @@ p {
 								onclick=window.location.href="DeleteAutorisationController?pos=<%=a.getId()%>&idE=<%=idE %>" >
 								<i class="fa-solid fa-trash"></i>
 							</button>
-							<button type="button" class="btn btn-info btn-lg btn-floating"
-								data-mdb-ripple-color="dark">
-								<i class="fa-solid fa-print"></i>
-							</button></td>
+							<button type="button" class="btn btn-dark btn-lg btn-floating"
+								data-mdb-ripple-color="dark"
+								onclick=window.location.href="PDFGeneratorServlet?pos=<%=a.getId()%>&idE=<%=idE %>"
+								>
+<i class="fa-solid fa-file-pdf"></i>							</button></td>
 					</tr>
 					<%
 					}

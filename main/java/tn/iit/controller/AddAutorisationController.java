@@ -22,32 +22,27 @@ import tn.iit.model.Enseignant;
 @WebServlet("/AddAutorisationController")
 public class AddAutorisationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AddAutorisationController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public AddAutorisationController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext servletContext = getServletContext();
 		String date = request.getParameter("date");
 		String nbheure = request.getParameter("nbheure");
@@ -57,6 +52,8 @@ public class AddAutorisationController extends HttpServlet {
 		System.out.println("date " + date + " NBH " + nbheure + " Ensei " + e);
 		Autorisation autorisation = new Autorisation(date, Integer.parseInt(nbheure), e);
 		AutorisationDao.save(autorisation);
+		HttpSession session = request.getSession();
+		session.setAttribute("idE", idEnsignant);
 		RequestDispatcher rdHelloView = getServletContext().getRequestDispatcher("/ListAutorisation.jsp");
 		rdHelloView.forward(request, response);
 	}
