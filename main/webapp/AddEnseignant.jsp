@@ -11,18 +11,17 @@
 <title>Register</title>
 </head>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 *{
 margin: 0;
 padding:0;
 box-sizing :border-box;
-font-family:"Poppins",dans-serif;
 }
 body{
-background:#dfe9f5;
+background: rgb(2,0,36);
+background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(224,228,235,1) 0%, rgba(237,242,250,1) 89%, rgba(255,255,255,1) 100%);
 }
 .wrapper{
-width:500px;
+width:700px;
 padding:2rem 1rem;
 margin: 50px auto;
 background-color:#fff;

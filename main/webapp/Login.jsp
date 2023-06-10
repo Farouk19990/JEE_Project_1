@@ -1,240 +1,114 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form,
-	fieldset, input, textarea, p, blockquote, th, td {
-	padding: 0;
-	margin: 0;
-}
-
-body {
-	background: #f2f2f2;
-	height: 100vh;
-	display: grid;
-	place-items: center;
-	font-family: Montserrat;
-	color: #b3afbf;
-}
-
-fieldset, img {
-	border: 0
-}
-
-ol, ul, li {
-	list-style: none
-}
-
-:focus {
-	outline: none
-}
-
-body, input, textarea, select {
-	font-family: 'Open Sans', sans-serif;
-	font-size: 16px;
-	color: #4c4c4c;
-}
-
-a {
-	float:left;
-	outline: 0;
-	border: 0;
-	cursor: pointer;
-	border-radius: 8px;
-	padding: 14px 24px 16px;
-	font-size: 18px;
-	font-weight: 700;
-	line-height: 1;
-	transition: transform 200ms, background 200ms;
-	background: transparent;
-	color: #000000;
-	box-shadow: 0 0 0 3px #000000 inset;
-}
-
-a:hover {
-	transform: translateY(-2px);
-}
-
-input.button {
-	float: right;
-	outline: 0;
-	border: 0;
-	cursor: pointer;
-	background: #000000;
-	color: #FFFFFF;
-	border-radius: 8px;
-	padding: 14px 24px 16px;
-	font-size: 18px;
-	font-weight: 700;
-	line-height: 1;
-	transition: transform 200ms, background 200ms;
-}
-
-input.button:hover {
-	transform: translateY(-2px);
-}
-
-p {
-	margin-top: 18px;
-	font-size: 16px;
-	width: 150px;
-	display: inline-block;
-	margin-left: 18px;
-	color: #ff0000;
-}
-
-h1 {
-	font-size: 32px;
-	font-weight: bold;
-	color: #4c4c4c;
-	text-align: center;
-	padding-top: 10px;
-	margin-bottom: 10px;
-}
-
-html {
-	background-color: #ffffff;
-}
-
-.testbox {
-	margin: 20px auto;
-	width: 350px;
-	height: 330px;
-	-webkit-border-radius: 8px/7px;
-	-moz-border-radius: 8px/7px;
-	border-radius: 8px/7px;
-	background-color: whitesmoke;
-	-webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
-	-moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
-	box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
-	border: solid 1px #cbc9c9;
-}
-
-input[type=radio] {
-	visibility: hidden;
-}
-
-form {
-	margin: 0 30px;
-}
-
-label.radio {
-	cursor: pointer;
-	text-indent: 35px;
-	overflow: visible;
-	display: inline-block;
-	position: relative;
-	margin-bottom: 15px;
-}
-
-label.radio:before {
-	background: #3a57af;
-	content: '';
-	position: absolute;
-	top: 2px;
-	left: 0;
-	width: 20px;
-	height: 20px;
-	border-radius: 100%;
-}
-
-label.radio:after {
-	opacity: 0;
-	content: '';
-	position: absolute;
-	width: 0.5em;
-	height: 0.25em;
-	background: transparent;
-	top: 7.5px;
-	left: 4.5px;
-	border: 3px solid #ffffff;
-	border-top: none;
-	border-right: none;
-	-webkit-transform: rotate(-45deg);
-	-moz-transform: rotate(-45deg);
-	-o-transform: rotate(-45deg);
-	-ms-transform: rotate(-45deg);
-	transform: rotate(-45deg);
-}
-
-input[type=radio]:checked+label:after {
-	opacity: 1;
-}
-
-hr {
-	color: #a9a9a9;
-	opacity: 0.3;
-}
-
-input[type=text], input[type=password] {
-	width: 220px;
-	height: 42px;
-	-webkit-border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
-	-moz-border-radius: 0px 4px 4px 0px/0px 0px 4px 4px;
-	border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
-	background-color: #fff;
-	-webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
-	-moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
-	box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
-	border: solid 1px #cbc9c9;
-	margin-left: -5px;
-	margin-top: 13px;
-	padding-left: 10px;
-}
-
-input[type=password] {
-	margin-bottom: 25px;
-}
-
-#icon {
-
-	display: inline-block;
-	width: 30px;
-	background-color: black;
-	padding: 8px 0px 8px 15px;
-	margin-left: 15px;
-	-webkit-border-radius: 4px 0px 0px 4px;
-	-moz-border-radius: 4px 0px 0px 4px;
-	border-radius: 4px 0px 0px 4px;
-	color: white;
-	-webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
-	-moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
-	box-shadow: 1px 2px 5px rgba(0, 0, 0, .09); #
-	border: solid 0px #cbc9c9;
-}
-
-.gender {
-	margin-left: 30px;
-	margin-bottom: 30px;
-}
-
-.accounttype {
-	margin-left: 8px;
-	margin-top: 20px;
-}
-</style>
 <meta charset="ISO-8859-1">
-<title>Login</title>
+<!-- Font Awesome -->
 <link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600'
-	rel='stylesheet' type='text/css'>
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
 <link
-	href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css"
-	rel="stylesheet">
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"
+></script>
+<title>Insert title here</title>
 </head>
+<style>
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+.form-outline .form-control{
+border:2px solid;
+}
+
+</style>
 <body>
-	<div class="testbox">
-		<h1>Login</h1>
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 		<form action="UtilisateurController" method="post">
-			<label id="icon" for="name"><i class="icon-envelope "></i></label><input
-				type="text" name="user_mail" placeholder="Mail" required><br>
-			<label id="icon" for="name"><i class="icon-shield"></i></label><input
-				type="password" name="pswd" placeholder="Mot de passe" required><br>
-			<input type="submit" value="valider" class="button">
-		</form>
-		<br />
+          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+            <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-twitter"></i>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-linkedin-in"></i>
+            </button>
+          </div>
+
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0">Or</p>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
+              placeholder="Entrer votre login" name="user_mail" />
+            <label class="form-label" for="form3Example3">Login</label>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <input type="password" id="form3Example4" class="form-control form-control-lg"
+              placeholder="Enter votre mot de passe" name="pswd"/>
+            <label class="form-label" for="form3Example4">Mot de passe</label>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+            <div class="form-check mb-0">
+              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+              <label class="form-check-label" for="form2Example3">
+                Remember me
+              </label>
+            </div>
+            <a href="#!" class="text-body">Forgot password?</a>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+
+          </div>
+
+        </form>
+        <br />
 		<%
 		if (request.getAttribute("erreur") != null) {
 		%>
@@ -242,7 +116,34 @@ input[type=password] {
 		<%
 		}
 		%>
+      </div>
+    </div>
+  </div>
+  <div
+    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+    <!-- Copyright -->
+    <div class="text-white mb-3 mb-md-0">
+      Copyright © 2020. All rights reserved.
+    </div>
+    <!-- Copyright -->
 
-	</div>
+    <!-- Right -->
+    <div>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="#!" class="text-white">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </div>
+</section>
 </body>
 </html>
