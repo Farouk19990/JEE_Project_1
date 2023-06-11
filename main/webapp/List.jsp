@@ -1,3 +1,4 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@page import="tn.iit.model.Enseignant"%>
 <%@page import="tn.iit.dao.EnseignantDao"%>
 <%@page import="java.util.List"%>
@@ -21,22 +22,20 @@
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>List Enseignant</title>
 </head>
 <style>
-
-
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-
 }
 
 body {
-background: rgb(2,0,36);
-background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(224,228,235,1) 0%, rgba(237,242,250,1) 89%, rgba(255,255,255,1) 100%);
-
+	background: rgb(2, 0, 36);
+	background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%,
+		rgba(224, 228, 235, 1) 0%, rgba(237, 242, 250, 1) 89%,
+		rgba(255, 255, 255, 1) 100%);
 }
 
 .wrapper {
@@ -119,6 +118,9 @@ p {
 
 <body>
 	<%
+	String connect = (String) session.getAttribute("connect");
+	System.out.println("Connect ??? "+connect);
+	if (connect != null) {
 		List<Enseignant> enseignantList = EnseignantDao.getAll();
 	%>
 	<div class="wrapper">
@@ -143,14 +145,15 @@ p {
 				</thead>
 				<tbody>
 					<%
-						for (Enseignant e : enseignantList) {
+					for (Enseignant e : enseignantList) {
 					%>
 					<tr>
 						<th scope="row"><%=e.getName()%></th>
 						<td><%=e.getPrenom()%></td>
 						<td><%=e.getMail()%></td>
 						<td><%=e.getNbheure()%></td>
-						<td><button type="button" class="btn btn-warning btn-lg btn-floating"
+						<td><button type="button"
+								class="btn btn-warning btn-lg btn-floating"
 								data-mdb-ripple-color="dark" onclick=window.location.href="UpdateEnseignant.jsp?pos=<%=e.getId()%>">
 								<i class="fa-sharp fa-solid fa-pen-to-square"></i>
 							</button>
@@ -159,15 +162,13 @@ p {
 								onclick=window.location.href="DeleteController?pos=<%=e.getId()%>" >
 								<i class="fa-solid fa-trash"></i>
 							</button>
-							<button type="button"
-								class="btn btn-info btn-lg btn-floating"
-								data-mdb-ripple-color="dark" onclick=window.location.href="ListAutorisation.jsp?idE=<%=e.getId()%>" >				
+							<button type="button" class="btn btn-info btn-lg btn-floating"
+								data-mdb-ripple-color="dark" onclick=window.location.href="ListAutorisation.jsp?idE=<%=e.getId()%>" >
 								<i class="fa-solid fa-print"></i>
-							</button>
-							</td>
+							</button></td>
 					</tr>
 					<%
-						}
+					}
 					%>
 				</tbody>
 
@@ -175,9 +176,16 @@ p {
 
 			</table>
 		</div>
-		</div>
-		
-		 
+	</div>
+	<%
+	}
+	else{
+		%><jsp:include page="ErrorPage.jsp" />
+		<% 
+	}
+	
+	%>
+
 </body>
 
 </html>

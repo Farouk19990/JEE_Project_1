@@ -1,6 +1,7 @@
 package tn.iit.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
 import tn.iit.dao.AutorisationDao;
 import tn.iit.dao.EnseignantDao;
@@ -44,18 +47,35 @@ public class AddAutorisationController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext servletContext = getServletContext();
+		RequestDispatcher rdListAutView = getServletContext().getRequestDispatcher("/ListAutorisation.jsp");
+		RequestDispatcher rdAddAutView = getServletContext().getRequestDispatcher("/AddAutorisation.jsp");
 		String date = request.getParameter("date");
 		String nbheure = request.getParameter("nbheure");
 		String idEnsignant = request.getParameter("idEnsignant");
 		System.out.println("IDDD " + idEnsignant);
 		Enseignant e = EnseignantDao.findById(Integer.parseInt(idEnsignant));
-		System.out.println("date " + date + " NBH " + nbheure + " Ensei " + e);
-		Autorisation autorisation = new Autorisation(date, Integer.parseInt(nbheure), e);
-		AutorisationDao.save(autorisation);
-		HttpSession session = request.getSession();
-		session.setAttribute("idE", idEnsignant);
-		RequestDispatcher rdHelloView = getServletContext().getRequestDispatcher("/ListAutorisation.jsp");
-		rdHelloView.forward(request, response);
+		List<Autorisation> l=AutorisationDao.findByEnseignantId(Integer.parseInt(idEnsignant));
+		int nbh_e=Integer.parseInt(nbheure);
+		int total=0;
+		for(Autorisation a:l) {
+			total+=a.getNbheure();
+		}
+		nbh_e+=total;
+		System.out.println("nb heure deja effectue "+nbh_e);
+		if(nbh_e<e.getNbheure()) {
+			System.out.println("date " + date + " NBH " + nbheure + " Ensei " + e);
+			Autorisation autorisation = new Autorisation(date, Integer.parseInt(nbheure), e);
+			AutorisationDao.save(autorisation);
+			HttpSession session = request.getSession();
+			session.setAttribute("idE", idEnsignant);
+			rdListAutView.forward(request, response);
+		}else {
+			int nh_remain=e.getNbheure()-total;
+			String remain_msg=e.getName()+" a encore juste "+nh_remain+" heures.";
+			request.setAttribute("remain", remain_msg);
+			rdAddAutView.forward(request, response);
+		}
+		
 	}
 
 }

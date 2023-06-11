@@ -50,6 +50,8 @@ public class UtilisateurController extends HttpServlet {
 		RequestDispatcher rdHelloView = getServletContext().getRequestDispatcher("/List.jsp");
 		Utilisateur u=UtilisateurDao.findByLoginPwd(mail, password);
 		if(u != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("connect", "connect");
 			rdHelloView.forward(request, response);
 		}else {
 			request.setAttribute("erreur", "Verifier vos donnée");

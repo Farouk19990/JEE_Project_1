@@ -53,7 +53,6 @@ public class UpdateController extends HttpServlet {
 	    u.setPrenom(prenom);
 	    u.setMail(mail);
 	    u.setNbheure(Integer.parseInt(nbheure));  
-	    System.out.println("user after update ::: "+u.toString());
 	    EnseignantDao.update(u);
 	    rdListUserView.forward(request, response);
 	}

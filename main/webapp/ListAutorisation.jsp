@@ -24,7 +24,7 @@
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>List Autorisation</title>
 </head>
 <style>
 * {
@@ -120,12 +120,11 @@ p {
 
 <body>
 	<%
-	
+	String connect = (String) session.getAttribute("connect");
+	if (connect != null) {
 	String idE = request.getParameter("idE");
-	System.out.println("List Aut  " + idE);
 	if(idE==null){
 		 idE =(String) session.getAttribute("idE");
-		 System.out.println("List Aut SESSION  " + idE);
 	}
 	List<Autorisation> autorisationList = AutorisationDao.findByEnseignantId(Integer.parseInt(idE));
 	Enseignant enseignant= EnseignantDao.findById(Integer.parseInt(idE));
@@ -187,7 +186,15 @@ p {
 			</table>
 		</div>
 	</div>
-
+	<%
+	}
+	else{
+		%>
+		<jsp:include page="ErrorPage.jsp" />
+		<% 
+	}
+	
+	%>
 
 </body>
 
